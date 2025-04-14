@@ -28,15 +28,43 @@ const categories = [
 ];
 
 const locations = [
-  "Library",
-  "Student Center",
-  "Science Building",
-  "Engineering Building",
-  "Cafeteria",
-  "Gym",
-  "Dormitories",
-  "Outdoor Areas",
-  "Unknown",
+  "Tech Park (TP)",
+  "Main Campus Building (Admin Block)",
+  "Basic Sciences Block",
+  "ESB (Engineering and Sciences Block)",
+  "Architecture Block",
+  "Civil Block",
+  "MBA/Management Block",
+  "Medical College Building",
+  "Dental College",
+  "Law Block",
+  "Boys Hostel - GH 1 to GH 6",
+  "Girls Hostel - LH 1 to LH 7",
+  "International Hostel",
+  "Medical Hostel",
+  "MBA HostelMess 1, 2, 3",
+  "Tech Park Cafeteria",
+  "Java Green / Café Coffee Day",
+  "OAT (Open Air Theatre)",
+  "University Canteen",
+  "SRM Night Canteen",
+  "SRM Bookstore / Coop Store",
+  "Main Gate / Entrance",
+  "Rear Gate (Potheri Gate)",
+  "Railway Station Overbridge",
+  "Bus Stops (Campus shuttle stop)",
+  "Indoor Stadium",
+  "Football Ground",
+  "Basketball Court",
+  "Swimming Pool",
+  "Central Library",
+  "SRM Hospital (Main Hospital Building)",
+  "Pharmacy",
+  "ATM Areas (SBI, HDFC, etc.)",
+  "Post Office / Courier Center",
+  "Dr. T.P. Ganesan Auditorium",
+  "Mini Auditorium (MBA Block)",
+  "Milan / Aaruush Event Zones",
 ];
 
 const maskProductNumber = (code) => {
@@ -63,7 +91,14 @@ const ReportFound = () => {
     e.preventDefault();
 
     // Basic Validation
-    if (!title || !category || !foundDate || !location || !contact || !description) {
+    if (
+      !title ||
+      !category ||
+      !foundDate ||
+      !location ||
+      !contact ||
+      !description
+    ) {
       toast({
         title: "Incomplete Submission",
         description: "Please fill in all required fields.",
@@ -151,7 +186,8 @@ const ReportFound = () => {
             Report a Found Item
           </h1>
           <p className="text-lg text-gray-600">
-            Help others reclaim lost belongings by reporting what you've found on campus.
+            Help others reclaim lost belongings by reporting what you've found
+            on campus.
           </p>
         </div>
 
@@ -234,12 +270,15 @@ const ReportFound = () => {
               <Input
                 id="phone"
                 type="tel"
-                placeholder="E.g. +1 (123) 456-7890"
+                placeholder="E.g. +91 9876543210"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
               <p className="text-sm text-gray-500">
-                We recommend providing a phone number for valuable or expensive items. Don't worry - we respect your privacy. Your phone number remains hidden until the owner proves ownership by verifying the product code.
+                We recommend providing a phone number for valuable or expensive
+                items. Don't worry - we respect your privacy. Your phone number
+                remains hidden until the owner proves ownership by verifying the
+                product code.
               </p>
             </div>
 
@@ -254,7 +293,8 @@ const ReportFound = () => {
                 onChange={(e) => setProductNumber(e.target.value)}
               />
               <p className="text-sm text-gray-500">
-                This helps confirm ownership. Only last 4 digits will be shown publicly.
+                This helps confirm ownership. Only last 4 digits will be shown
+                publicly.
               </p>
             </div>
 
@@ -312,7 +352,8 @@ const ReportFound = () => {
                 {isLoading ? "Submitting..." : "Submit Found Item Report"}
               </Button>
               <p className="text-sm text-gray-500 text-center mt-4">
-                The item will be listed for 30 days. Owners can search and claim it during this time.
+                The item will be listed for 30 days. Owners can search and claim
+                it during this time.
               </p>
             </div>
           </form>
