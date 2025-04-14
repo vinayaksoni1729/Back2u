@@ -30,11 +30,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/lost-items" className="text-gray-600 hover:text-purple-500 transition-colors">
-                  Report Lost
-                </Link>
-              </li>
-              <li>
                 <Link to="/about" className="text-gray-600 hover:text-purple-500 transition-colors">
                   About
                 </Link>
@@ -45,9 +40,9 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-gray-900 font-medium">Contact</h3>
             <p className="text-gray-600">
-              Student Center, Room 204<br />
-              123 University Ave<br />
-              Email: help@back2u.college.edu
+              SRMIST Kattankulathur<br />
+              Tamil Nadu 603203<br />
+              Email: drxrecover@gmail.com
             </p>
           </div>
         </div>
