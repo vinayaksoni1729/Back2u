@@ -1,7 +1,7 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import heroImg from "../../assets/hero_img.jpg"; // Adjust the path accordingly
 
 const HeroSection = () => {
   return (
@@ -16,11 +16,12 @@ const HeroSection = () => {
               </span>
             </h1>
             <p className="text-lg text-gray-600 max-w-md">
-              Back2U connects people who have lost items with those who have found them on our college campus.
+              Back2U connects people who have lost items with those who have
+              found them on our college campus.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
-                size="lg" 
+                size="lg"
                 className="bg-purple-500 hover:bg-purple-600"
                 asChild
               >
@@ -36,12 +37,12 @@ const HeroSection = () => {
               </Button>
             </div>
           </div>
-          
-          <div className="animate-slide-up">
+
+          <div className="animate-slide-up flex items-center justify-center ">
             <img
-              src="/placeholder.svg" 
+              src={heroImg}
               alt="Lost and Found"
-              className="w-full h-auto rounded-lg shadow-md"
+              className="w-auto h-auto rounded-2xl shadow-md"
             />
           </div>
         </div>

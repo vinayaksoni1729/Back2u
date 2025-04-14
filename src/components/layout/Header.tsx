@@ -32,9 +32,7 @@ const Header = () => {
 
         {/* Right-side buttons */}
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" className="hidden md:flex text-gray-700 hover:text-purple-500">
-            <Search className="h-5 w-5" />
-          </Button>
+
           <Button className="bg-purple-500 hover:bg-purple-600 text-white" asChild>
             <Link to="/report-found">Report Found</Link>
           </Button>
