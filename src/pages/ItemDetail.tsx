@@ -96,7 +96,7 @@ if (inputCode === item.productNumber) {
   setIsCodeCorrect(true);
   
   // Notify the found item reporter
-  fetch("https://back2u.vercel.app/api/send-claim-email", {
+  fetch("https://back2u.vercel.app/api/server", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
