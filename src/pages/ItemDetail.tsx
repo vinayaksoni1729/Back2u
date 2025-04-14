@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { db } from "../firebaseConfig";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 // Define the type for our item
 interface ItemType {
@@ -85,31 +85,16 @@ const ItemDetail = () => {
     fetchItem();
   }, [id]);
 
-  const handleClaimClick = async () => {
+  const handleClaimClick = () => {
     if (inputCode === item?.productNumber) {
       setIsCodeCorrect(true);
       toast({
         title: "Claim initiated",
         description:
-          "You've successfully verified the product number. We've sent you an email with next steps to claim this item.",
+          "Now you can contact the owner to claim this item.",
         duration: 5000,
       });
-
-      // Update the item status to 'claimed'
-      try {
-        const itemRef = doc(db, "foundItems", item.id);
-        await updateDoc(itemRef, {
-          status: "claimed",
-          claimedBy: foundUserId,
-        });
-      } catch (err) {
-        console.error("Error updating document:", err);
-        toast({
-          title: "Error",
-          description: "Failed to update item status. Please try again later.",
-          duration: 5000,
-        });
-      }
+      setClaimed(true); // Mark the item as claimed
     } else {
       setIsCodeCorrect(false);
       toast({
@@ -162,7 +147,7 @@ const ItemDetail = () => {
             Back to Found Items
           </Link>
         </div>
-  
+
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-6">
@@ -175,7 +160,7 @@ const ItemDetail = () => {
               </div>
               <div className="space-y-4">
                 {/* Display Masked Product Number */}
-                {item.maskedProductNumber && (
+                {item.maskedProductNumber && !claimed && (
                   <div>
                     <h2 className="text-sm font-medium text-gray-500">Product Number</h2>
                     <div className="flex items-center mt-1">
@@ -188,18 +173,18 @@ const ItemDetail = () => {
                 )}
               </div>
             </div>
-  
+
             <div className="p-6 bg-gray-50 border-l border-gray-100">
               <h1 className="text-2xl font-bold text-gray-900 mb-4">{item.title}</h1>
-  
+
               {/* Item Description */}
               <div className="mb-4">
                 <h2 className="text-sm font-medium text-gray-500">Description</h2>
                 <p className="text-gray-700 mt-1">{item.description}</p>
               </div>
-  
+
               {/* Product Code Section (only if productNumber exists) */}
-              {item.productNumber ? (
+              {item.productNumber && !claimed ? (
                 <>
                   {foundUserId === item.reportedBy ? (
                     <div className="text-green-600 font-medium">
@@ -218,7 +203,7 @@ const ItemDetail = () => {
                           maxLength={10}
                         />
                       </div>
-  
+
                       <Button 
                         onClick={handleClaimClick}
                         className={`w-full ${isCodeCorrect ? 'bg-green-500' : 'bg-purple-500'} hover:bg-purple-600`}
@@ -228,7 +213,7 @@ const ItemDetail = () => {
                     </>
                   )}
                 </>
-              ) : (
+              ) : !claimed && (
                 // Non-Coded Item: Show the "Claim Item" button
                 <div className="mb-4">
                   <Button
@@ -239,7 +224,7 @@ const ItemDetail = () => {
                   </Button>
                 </div>
               )}
-  
+
               {/* Show contact details after claim */}
               {(isCodeCorrect || claimed) && (
                 <div className="mt-4 bg-green-100 p-4 rounded-md border border-green-200">

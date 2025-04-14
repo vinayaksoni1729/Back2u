@@ -1,73 +1,32 @@
-# Welcome to your Lovable project
+# Back2U - Lost & Found Platform
 
-## Project info
+## Description
 
-**URL**: https://lovable.dev/projects/b46e48fe-56d1-4126-8ff1-aeb6c2d6be57
+**Back2U** is a simple and user-friendly platform created to help college students report and find lost items around campus. Whether you’ve lost your favorite jacket or found a misplaced phone, Back2U allows students to easily connect and reunite with their lost possessions.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Report Lost Items:** Users can easily report lost items, providing details such as item description, location, and contact information.
+- **View Found Items:** The platform displays items that have been found, allowing users to search for their lost belongings.
+- **Search Functionality:** Users can search for lost or found items based on keywords, categories, or location.
+- **Minimalist Design:** Clean and intuitive interface for easy use.
+- **Responsive:** Works seamlessly on desktops, tablets, and smartphones.
 
-**Use Lovable**
+## How It Works
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b46e48fe-56d1-4126-8ff1-aeb6c2d6be57) and start prompting.
+1. **Reporting Lost Items:**
+   - When you lose something, simply log into the platform and fill in the form with the item details like its description, last seen location, and your contact info.
+   
+2. **Finding Lost Items:**
+   - Browse through items listed as “found.” Each entry contains a description and contact information. You can get in touch with the person who found your item.
 
-Changes made via Lovable will be committed automatically to this repo.
+3. **Search:**
+   - The search feature helps you quickly locate lost or found items based on keywords and location.
 
-**Use your preferred IDE**
+## Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Clone the repository:**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b46e48fe-56d1-4126-8ff1-aeb6c2d6be57) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+   ```bash
+   git clone https://github.com/vinayaksoni1729/Back2u.git
+   cd back2u
