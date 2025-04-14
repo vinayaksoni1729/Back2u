@@ -96,7 +96,7 @@ const ItemDetail = () => {
         toast({
           title: "Claim successful",
           description:
-            "You've successfully verified the product code. You can now contact the owner.",
+            "You've successfully verified the product code. You can now contact the person found it.",
           duration: 5000,
         });
       } else {
