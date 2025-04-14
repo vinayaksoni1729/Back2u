@@ -3,6 +3,7 @@ import React from 'react';
 import Layout from '../components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import storyImg from "../assets/story.jpg"; // Adjust the path accordingly
 
 const About = () => {
   return (
@@ -28,11 +29,11 @@ const About = () => {
               Our platform is run by volunteers from the student body with support from the university administration.
             </p>
           </div>
-          <div className="bg-gray-100 rounded-lg h-80 flex items-center justify-center">
+          <div className="h-80 flex items-center justify-center">
             <img
-              src="/placeholder.svg"
+              src={storyImg}
               alt="Team Photo"
-              className="max-h-full"
+              className="max-h-full rounded-2xl"
             />
           </div>
         </div>
