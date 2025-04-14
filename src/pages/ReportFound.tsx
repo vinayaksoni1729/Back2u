@@ -53,6 +53,7 @@ const ReportFound = () => {
   const [foundDate, setFoundDate] = useState("");
   const [location, setLocation] = useState("");
   const [contact, setContact] = useState("");
+  const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
   const [productNumber, setProductNumber] = useState("");
   const [image, setImage] = useState(null);
@@ -107,6 +108,7 @@ const ReportFound = () => {
         foundDate,
         location,
         contact,
+        phone,
         description,
         productNumber,
         maskedProductNumber,
@@ -126,6 +128,7 @@ const ReportFound = () => {
       setFoundDate("");
       setLocation("");
       setContact("");
+      setPhone("");
       setDescription("");
       setProductNumber("");
       setImage(null);
@@ -225,8 +228,24 @@ const ReportFound = () => {
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="phone">
+                Your Phone Number (Recommended for valuable items)
+              </Label>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="E.g. +1 (123) 456-7890"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <p className="text-sm text-gray-500">
+                We recommend providing a phone number for valuable or expensive items. Don't worry - we respect your privacy. Your phone number remains hidden until the owner proves ownership by verifying the product code.
+              </p>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="productNumber">
-                Product Number / Serial Code (optional)
+                Product Number / Serial Code (Recommended for valuable items)
               </Label>
               <Input
                 id="productNumber"
