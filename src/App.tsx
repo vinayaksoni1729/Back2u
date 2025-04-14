@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { signInAnonymously } from "firebase/auth";
-import { auth } from "./firebaseConfig"; // adjust the path if needed
-
-// ...existing imports
+import { auth } from "./firebaseConfig";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";

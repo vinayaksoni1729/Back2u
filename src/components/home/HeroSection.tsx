@@ -32,7 +32,7 @@ const HeroSection = () => {
                 className="border-purple-500 text-purple-700 hover:bg-purple-50"
                 asChild
               >
-                <Link to="/lost-items">Report Lost Item</Link>
+                <Link to="/report-found">Report Found Item</Link>
               </Button>
             </div>
           </div>
