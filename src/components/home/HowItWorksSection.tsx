@@ -10,8 +10,8 @@ const steps = [
     color: 'bg-blue-100 text-blue-600'
   },
   {
-    title: 'Report a Lost Item',
-    description: 'Can\'t find what you\'re looking for? Report your lost item with details.',
+    title: 'Verify your authenticity',
+    description: 'Give some details about your lost item to help us verify its authenticity.',
     icon: Flag,
     color: 'bg-red-100 text-red-600'
   },

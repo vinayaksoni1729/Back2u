@@ -23,7 +23,7 @@ const About = () => {
               Back2U was created by students who recognized a common problem on campus: the difficulty of finding lost items. The traditional lost and found system was disorganized and inefficient, often leading to unclaimed items and frustrated students.
             </p>
             <p className="text-gray-700 mb-4">
-              We launched in 2023 with a simple mission: connect people with their lost belongings through a user-friendly online platform. Since then, we've helped hundreds of students recover their valuable items.
+              We launched in 2025 with a simple mission: connect people with their lost belongings through a user-friendly online platform. Since then, we've helped hundreds of students recover their valuable items.
             </p>
             <p className="text-gray-700">
               Our platform is run by volunteers from the student body with support from the university administration.
@@ -69,24 +69,7 @@ const About = () => {
               </p>
             </div>
           </div>
-        </div>
-        
-        <div className="text-center mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Team</h2>
-          <p className="text-gray-700 mb-8 max-w-3xl mx-auto">
-            Back2U is managed by a dedicated team of student volunteers and supported by campus administration.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((index) => (
-              <div key={index} className="bg-white rounded-lg p-4 shadow-sm">
-                <div className="w-24 h-24 rounded-full bg-gray-100 mx-auto mb-4"></div>
-                <h3 className="text-lg font-medium text-gray-900">Team Member {index}</h3>
-                <p className="text-gray-600 text-sm">Role</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
+        </div>        
         <div className="bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg p-8 text-white text-center">
           <h2 className="text-2xl font-bold mb-4">Join Our Mission</h2>
           <p className="mb-6 max-w-2xl mx-auto">
@@ -94,10 +77,7 @@ const About = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button className="bg-white text-purple-700 hover:bg-gray-100" asChild>
-              <Link to="/volunteer">Volunteer With Us</Link>
-            </Button>
-            <Button variant="outline" className="text-white border-white hover:bg-purple-600" asChild>
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/found-items">Report a Found Item</Link>
             </Button>
           </div>
         </div>
