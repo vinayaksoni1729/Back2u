@@ -49,8 +49,8 @@ app.post('/api/send-claim-email', async (req, res) => {
           </ul>
         </div>
         
-        <p>Thank you for using our Lost & Found service!</p>
-        <p>Best regards,<br>The Lost & Found Team</p>
+        <p>Thank you for using Back2u!</p>
+        <p>Best regards,<br>Back2u Team</p>
       </div>
     `
   };
