@@ -91,15 +91,40 @@ const ItemDetail = () => {
     if (item?.productNumber) {
       // For code items
       setCodeAttempted(true);
-      if (inputCode === item.productNumber) {
-        setIsCodeCorrect(true);
-        toast({
-          title: "Claim successful",
-          description:
-            "You've successfully verified the product code. You can now contact the person found it.",
-          duration: 5000,
-        });
-      } else {
+// Inside handleClaimClick function, when code is verified correctly:
+if (inputCode === item.productNumber) {
+  setIsCodeCorrect(true);
+  
+  // Notify the found item reporter
+  fetch("http://localhost:5000/api/send-claim-email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      toEmail: item.contactEmail,
+      itemTitle: item.title,
+      // No need for complex user information, keeping it simple as requested
+    }),
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.error("Failed to send email:", err);
+      toast({
+        title: "Notification failed",
+        description: "We couldn't notify the item owner, but your claim was successful.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    });
+
+  toast({
+    title: "Claim successful",
+    description: "You've successfully verified the product code. You can now contact the person who found it.",
+    duration: 5000,
+  });
+}
+       else {
         setIsCodeCorrect(false);
         toast({
           title: "Verification failed",
