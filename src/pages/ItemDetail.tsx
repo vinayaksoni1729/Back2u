@@ -36,6 +36,7 @@ const ItemDetail = () => {
   const [error, setError] = useState<string | null>(null);
   const [inputCode, setInputCode] = useState<string>(""); // For verifying the product number
   const [isCodeCorrect, setIsCodeCorrect] = useState(false); // To track if the entered code is correct
+  const [codeAttempted, setCodeAttempted] = useState(false); // Track if user attempted to enter code
   const foundUserId = localStorage.getItem("foundUserId"); // current user's ID
 
   // Fetch item data from Firebase
@@ -68,6 +69,7 @@ const ItemDetail = () => {
             description: data.description || "No description provided",
             reportedBy: data.reportedBy || "Anonymous",
             contactEmail: data.contact || data.contactEmail || "Not provided",
+            contact: data.phone || "Not provided",
             productNumber: data.productNumber,
             maskedProductNumber: data.maskedProductNumber,
           });
@@ -86,21 +88,32 @@ const ItemDetail = () => {
   }, [id]);
 
   const handleClaimClick = () => {
-    if (inputCode === item?.productNumber) {
-      setIsCodeCorrect(true);
-      toast({
-        title: "Claim initiated",
-        description:
-          "Now you can contact the owner to claim this item.",
-        duration: 5000,
-      });
-      setClaimed(true); // Mark the item as claimed
+    if (item?.productNumber) {
+      // For code items
+      setCodeAttempted(true);
+      if (inputCode === item.productNumber) {
+        setIsCodeCorrect(true);
+        toast({
+          title: "Claim successful",
+          description:
+            "You've successfully verified the product code. You can now contact the owner.",
+          duration: 5000,
+        });
+      } else {
+        setIsCodeCorrect(false);
+        toast({
+          title: "Verification failed",
+          description:
+            "The product number you entered is incorrect, but you can still contact the owner via email.",
+          duration: 5000,
+        });
+      }
     } else {
-      setIsCodeCorrect(false);
+      // For non-code items
+      setClaimed(true);
       toast({
-        title: "Claim failed",
-        description:
-          "The product number you entered is incorrect. Please try again.",
+        title: "Item claimed",
+        description: "You can now contact the owner to claim this item.",
         duration: 5000,
       });
     }
@@ -160,7 +173,7 @@ const ItemDetail = () => {
               </div>
               <div className="space-y-4">
                 {/* Display Masked Product Number */}
-                {item.maskedProductNumber && !claimed && (
+                {item.maskedProductNumber && !claimed && !codeAttempted && (
                   <div>
                     <h2 className="text-sm font-medium text-gray-500">Product Number</h2>
                     <div className="flex items-center mt-1">
@@ -184,7 +197,7 @@ const ItemDetail = () => {
               </div>
 
               {/* Product Code Section (only if productNumber exists) */}
-              {item.productNumber && !claimed ? (
+              {item.productNumber && !codeAttempted ? (
                 <>
                   {foundUserId === item.reportedBy ? (
                     <div className="text-green-600 font-medium">
@@ -206,31 +219,48 @@ const ItemDetail = () => {
 
                       <Button 
                         onClick={handleClaimClick}
-                        className={`w-full ${isCodeCorrect ? 'bg-green-500' : 'bg-purple-500'} hover:bg-purple-600`}
+                        className="w-full bg-purple-500 hover:bg-purple-600"
                       >
-                        {isCodeCorrect ? 'Claimed Successfully' : 'Claim This Item'}
+                        Verify Code
                       </Button>
                     </>
                   )}
                 </>
-              ) : !claimed && (
-                // Non-Coded Item: Show the "Claim Item" button
-                <div className="mb-4">
-                  <Button
-                    onClick={() => setClaimed(true)} // Mark the item as claimed
-                    className="w-full bg-green-500 hover:bg-green-600"
-                  >
-                    Claim This Item
-                  </Button>
-                </div>
+              ) : (
+                <>
+                  {/* For non-code items or after code attempt */}
+                  {!claimed && !codeAttempted && (
+                    <div className="mb-4">
+                      <Button
+                        onClick={handleClaimClick}
+                        className="w-full bg-green-500 hover:bg-green-600"
+                      >
+                        Claim This Item
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
 
-              {/* Show contact details after claim */}
-              {(isCodeCorrect || claimed) && (
+              {/* Show contact details after claim or code attempt */}
+              {(claimed || codeAttempted) && (
                 <div className="mt-4 bg-green-100 p-4 rounded-md border border-green-200">
                   <h3 className="font-medium text-gray-700">Contact Details</h3>
+                  
+                  {/* Always show email */}
                   <p className="text-sm text-gray-600">Email: {item.contactEmail || 'Not provided'}</p>
-                  <p className="text-sm text-gray-600">Phone: {item.contact || 'Not provided'}</p>
+                  
+                  {/* Show phone only if code is correct */}
+                  {(isCodeCorrect || !item.productNumber) && (
+                    <p className="text-sm text-gray-600">Phone: {item.contact || 'Not provided'}</p>
+                  )}
+                  
+                  {/* Message for failed code verification */}
+                  {item.productNumber && codeAttempted && !isCodeCorrect && (
+                    <p className="mt-2 text-sm italic text-gray-600">
+                      It seems you couldn't verify the code, but you can still claim this item by contacting the owner via email.
+                    </p>
+                  )}
                 </div>
               )}
             </div>
