@@ -149,6 +149,7 @@ const ReportFound = () => {
         maskedProductNumber,
         imageUrl,
         createdAt: Timestamp.now(),
+        isReturned: false  // Add this line
       });
 
       toast({
