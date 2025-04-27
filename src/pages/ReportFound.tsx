@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,9 @@ import { Camera } from "lucide-react";
 import { db } from "../firebaseConfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import axios from "axios";
+import { useAuth } from '../hooks/useAuth'; // Add this import
+import { useNavigate } from 'react-router-dom'; // Add this for redirecting unauthenticated users
+
 
 const categories = [
   "Electronics",
@@ -76,16 +79,30 @@ const maskProductNumber = (code) => {
 
 const ReportFound = () => {
   const { toast } = useToast();
+  const { user, loading, isAuthenticated } = useAuth(); // Get auth information
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [foundDate, setFoundDate] = useState("");
   const [location, setLocation] = useState("");
-  const [contact, setContact] = useState("");
+  const [contact, setContact] = useState(""); // We'll set this from user.email
   const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
   const [productNumber, setProductNumber] = useState("");
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      navigate('/login', { state: { from: '/report-found' } });
+    }
+    
+    // Set contact email from user's email when available
+    if (user && user.email) {
+      setContact(user.email);
+    }
+  }, [user, loading, isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,7 +113,6 @@ const ReportFound = () => {
       !category ||
       !foundDate ||
       !location ||
-      !contact ||
       !description
     ) {
       toast({
@@ -142,14 +158,14 @@ const ReportFound = () => {
         category,
         foundDate,
         location,
-        contact,
+        contact: user.email, // Use user's email from auth
         phone,
         description,
         productNumber,
         maskedProductNumber,
         imageUrl,
         createdAt: Timestamp.now(),
-        isReturned: false  // Add this line
+        isReturned: false // Add this line to fix the dashboard issue
       });
 
       toast({
@@ -158,12 +174,11 @@ const ReportFound = () => {
           "Thank you for reporting the found item. It'll be visible in our database for 30 days.",
       });
 
-      // Reset form
+      // Reset form fields
       setTitle("");
       setCategory("");
       setFoundDate("");
       setLocation("");
-      setContact("");
       setPhone("");
       setDescription("");
       setProductNumber("");
@@ -179,6 +194,15 @@ const ReportFound = () => {
     setIsLoading(false);
   };
 
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto py-12 text-center">
+          <p>Loading...</p>
+        </div>
+      </Layout>
+    );
+  }
   return (
     <Layout>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
@@ -256,11 +280,13 @@ const ReportFound = () => {
                 <Input
                   id="contact"
                   type="email"
-                  placeholder="your.email@example.com"
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                  required
+                  value={contact} // This will be pre-filled with user.email
+                  readOnly // Make it read-only
+                  className="bg-gray-50" // Add some styling to indicate it's not editable
                 />
+                <p className="text-xs text-gray-500">
+                  Using your account email for contact
+                </p>
               </div>
             </div>
 

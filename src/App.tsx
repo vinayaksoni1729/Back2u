@@ -14,6 +14,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Create Auth Context
 interface AuthContextType {
@@ -70,6 +71,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/found-items" element={<FoundItems />} />
+              
               <Route path="/report-found" element={<ReportFound />} />
               <Route path="/item/:id" element={<ItemDetail />} />
               <Route path="/about" element={<About />} />

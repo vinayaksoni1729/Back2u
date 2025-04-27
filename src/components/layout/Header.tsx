@@ -12,11 +12,12 @@ const Header = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleProfileMenu = () => setIsProfileMenuOpen(!isProfileMenuOpen);
-  // Add this function to get username from email
+  
   const getUsernameFromEmail = (email) => {
     if (!email) return "";
     return email.split("@")[0]; // Get everything before @
   };
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -26,6 +27,16 @@ const Header = () => {
       console.error("Logout error:", error);
     }
   };
+
+  // Check if user is properly authenticated (not anonymous)
+  const isAuthenticated = user && !user.isAnonymous;
+
+  // Redirect unauthenticated users trying to access protected routes
+  useEffect(() => {
+    if (!loading && !isAuthenticated && window.location.pathname === "/report-found") {
+      navigate("/login", { state: { from: "/report-found" } });
+    }
+  }, [user, loading, navigate]);
 
   // Add global storage event listener for auth changes in other tabs
   useEffect(() => {
@@ -62,12 +73,14 @@ const Header = () => {
           >
             Found Items
           </Link>
-          <Link
-            to="/report-found"
-            className="text-gray-700 hover:text-purple-500 transition-colors"
-          >
-            Report Found
-          </Link>
+          {isAuthenticated && (
+            <Link
+              to="/report-found"
+              className="text-gray-700 hover:text-purple-500 transition-colors"
+            >
+              Report Found
+            </Link>
+          )}
           <Link
             to="/about"
             className="text-gray-700 hover:text-purple-500 transition-colors"
@@ -81,7 +94,7 @@ const Header = () => {
           {/* Conditional Login/Signup or User Profile */}
           {!loading && (
             <>
-              {user && !user.isAnonymous ? (
+              {isAuthenticated ? (
                 <div className="relative">
                   <button
                     onClick={toggleProfileMenu}
@@ -207,18 +220,22 @@ const Header = () => {
             >
               About
             </Link>
-            <Link
-              to="/report-found"
-              onClick={toggleMenu}
-              className="text-purple-600 font-medium"
-            >
-              Report Found
-            </Link>
+            
+            {/* Show Report Found only for authenticated users */}
+            {isAuthenticated && (
+              <Link
+                to="/report-found"
+                onClick={toggleMenu}
+                className="text-purple-600 font-medium"
+              >
+                Report Found
+              </Link>
+            )}
 
             {/* Mobile Login/Profile */}
             {!loading && (
               <>
-                {user && !user.isAnonymous ? (
+                {isAuthenticated ? (
                   <>
                     <div className="border-t border-gray-200 my-2 pt-2"></div>
                     <Link
