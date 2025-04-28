@@ -21,8 +21,12 @@ const FoundItems = () => {
       try {
         console.log("Starting to fetch items from Firebase...");
         
-        // Try without the where clause first to see if you get any documents
-        const q = collection(db, "foundItems");
+        // Create a query to only fetch items where isReturned is false
+        const q = query(
+          collection(db, "foundItems"),
+          where("isReturned", "==", false)
+        );
+        
         const querySnapshot = await getDocs(q);
         
         console.log("Query returned:", querySnapshot.size, "documents");
@@ -39,6 +43,7 @@ const FoundItems = () => {
             location: data.location,
             date: data.foundDate,
             status: 'found'
+            // isReturned is used for filtering but doesn't need to be passed to ItemCard
           });
         });
         

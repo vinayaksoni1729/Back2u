@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -13,6 +12,7 @@ export interface ItemProps {
   location: string;
   date: string;
   status: 'found' | 'lost' | 'claimed';
+  isReturned?: boolean; // Added this property
 }
 
 const ItemCard: React.FC<ItemProps> = ({
